@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles.css" />
+		<script src="script.js"></script>
+		<title>Scroll Effect with Sequential Images</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, sans-serif;
+			}
+
+			.message {
+				text-align: center;
+				font-size: 24px;
+				padding: 100px 0;
+			}
+
+			.image-container {
+				width: 100%;
+				height: 100vh; /* Make the container the height of the viewport */
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				/* justify-content: flex-end; */
+			}
+
+			.image {
+				display: none;
+				max-width: 100%;
+				position: relative;
+			}
+
+			.show {
+				display: block;
+			}
+
+			.scrollable-container {
+				width: 100vw; /* Set the desired width */
+				height: 2000vh; /* Set the desired height for the scrollable div */
+				border: 1px solid #ccc;
+				overflow: auto; /* Enable scrolling for the div */
+			}
+
+			.scrolling-content {
+				padding: 10px; /* Add padding to create some space within the div */
+			}
+
+			.third {
+				height: 50px;
+				/* background: green; */
+				position: absolute;
+				/* top: 0px; */
+			}
+
+			.centered-element {
+				position: fixed;
+				top: 20%;
+				/* left: 50%; */
+				transform: translate(-50%, -50%);
+				/* background-color: #fff; */
+				padding: 20px;
+				/* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
+				z-index: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="message">Scroll to see the images.</div> -->
+		<div class="scrollable-container">
+			<div class="scrolling-content">
+				<div class="image-container">
+					<img
+						class="image centered-element"
+                  style="transform: rotate(90deg);"
+						src="assets/img/img1.svg"
+						alt="Image 1"
+					/>
+					<img
+						class="image centered-element"
+                  style="transform: rotate(110deg);"
+						src="assets/img/img1.svg"
+						alt="Image 2"
+					/>
+					<img
+						class="image centered-element"
+						style="transform: rotate(120deg);"
+                  src="assets/img/img1.svg"
+						alt="Image 3"
+					/>
+					<img
+						class="image centered-element"
+                  style="transform: rotate(130deg);"
+						src="assets/img/img1.svg"
+						alt="Image 4"
+					/>
+					<img
+						class="image centered-element"
+                  style="transform: rotate(140deg);"
+						src="assets/img/img1.svg"
+						alt="Image 5"
+					/>
+					<img
+						class="image centered-element"
+                  style="transform: rotate(150deg);"
+						src="assets/img/img1.svg"
+						alt="Image 6"
+					/>
+					<img
+						class="image centered-element"
+                  style="transform: rotate(160deg);"
+						src="assets/img/img1.svg"
+						alt="Image 6"
+					/>
+					<img
+						class="image centered-element"
+						style="transform: rotate(170deg);"
+						src="assets/img/img1.svg"
+						alt="Image 7"
+					/>
+					<!-- Add more images (img3 to img10) similarly -->
+				</div>
+			</div>
+		</div>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const message = document.querySelector(".message");
+				const images = document.querySelectorAll(".image");
+				const imageContainer = document.querySelector(".image-container");
+
+				let currentImageIndex = 0;
+
+				function showImage(index) {
+					images[index].classList.add("show");
+				}
+
+				function hideImage(index) {
+					images[index].classList.remove("show");
+				}
+
+				function handleScroll() {
+					const scrollTop = window.scrollY;
+
+					// Calculate which image to show based on scroll position
+					const imageToShowIndex = Math.min(
+						Math.floor(scrollTop / 100),
+						images.length - 1
+					);
+
+					// Hide the previous image
+					hideImage(currentImageIndex);
+
+					// Show the new image
+					showImage(imageToShowIndex);
+
+					currentImageIndex = imageToShowIndex;
+				}
+
+				window.addEventListener("scroll", handleScroll);
+				window.addEventListener("load", () => {
+					// Show the first image initially
+					showImage(currentImageIndex);
+				});
+			});
+		</script>
+	</body>
+</html>
